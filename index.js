@@ -35,15 +35,39 @@ function renderGrid(dimension) {
 }
 
 function checkWinner() {
-    let isCrossWinner = false;
-    let isZeroWinner = false;
     for (let i = 0; i < field.length; i++) {
         let firstEl = field[i][0];
         if (field[i].every(cell => cell === firstEl && cell !== EMPTY)){
             return firstEl;
         }
-
     }
+    for (let i = 0; i < field.length; i++) {
+        let firstEl = field[0][i];
+        if (field.every(row => row[i] === firstEl && row[i] !== EMPTY)){
+            return firstEl;
+        }
+    }
+    let firstEl = field[0][0];
+    let completed = true;
+    for (let i = 0; i < field.length; i++) {
+        if (field[i][i] !== firstEl){
+            completed = false;
+            break;
+        }
+    }
+    if (completed){
+        return firstEl;
+    }
+    firstEl = field[0][field.length - 1];
+    completed = true;
+    for (let i = 0; i < field.length; i++) {
+        if (field[i][field.length - 1 - i] !== firstEl){
+            completed = false;
+            break;
+        }
+    }
+    if (completed)
+        return firstEl;
 }
 
 function cellClickHandler(row, col) {
@@ -59,6 +83,7 @@ function cellClickHandler(row, col) {
         field[row][col] = CROSS;
         renderSymbolInCell(CROSS, row, col);
     }
+    console.log(checkWinner())
     counter++;
     if (counter === cellsCount) {
         alert('Победила дружба');
