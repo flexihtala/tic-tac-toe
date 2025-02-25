@@ -8,6 +8,7 @@ const field = [
 ];
 const cellsCount = field.length * field[0].length
 let counter = 0;
+let winner = undefined;
 
 const container = document.getElementById('fieldWrapper');
 
@@ -34,7 +35,6 @@ function renderGrid(dimension) {
     }
 }
 
-let winner = undefined;
 
 function checkWinner() {
     for (let i = 0; i < field.length; i++) {
@@ -133,6 +133,15 @@ function addResetListener() {
 
 function resetClickHandler() {
     console.log('reset!');
+    counter = 0;
+    winner = undefined;
+    for (let i = 0; i < field.length; i++) {
+        for (let j = 0; j < field[i].length; j++) {
+            field[i][j] = EMPTY;
+            renderSymbolInCell(EMPTY, i, j);
+        }
+        
+    }
 }
 
 
