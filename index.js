@@ -35,6 +35,9 @@ function renderGrid(dimension) {
 
 function cellClickHandler(row, col) {
     console.log(`Clicked on cell: ${row}, ${col}`);
+    if (field[row][col] !== EMPTY) {
+        return;
+    }
     if (counter % 2) {
         field[row][col] = ZERO;
         renderSymbolInCell(ZERO, row, col);
