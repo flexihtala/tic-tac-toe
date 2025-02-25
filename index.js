@@ -6,6 +6,7 @@ const field = [
     [EMPTY, EMPTY, EMPTY],
     [EMPTY, EMPTY, EMPTY]
 ];
+const cellsCount = field.length * field[0].length
 let counter = 0;
 
 const container = document.getElementById('fieldWrapper');
@@ -47,6 +48,9 @@ function cellClickHandler(row, col) {
         renderSymbolInCell(CROSS, row, col);
     }
     counter++;
+    if (counter === cellsCount) {
+        alert('Победила дружба');
+    }
 }
 
 function renderSymbolInCell(symbol, row, col, color = '#333') {
