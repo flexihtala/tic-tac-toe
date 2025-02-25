@@ -34,6 +34,8 @@ function renderGrid(dimension) {
     }
 }
 
+let winner = undefined;
+
 function checkWinner() {
     for (let i = 0; i < field.length; i++) {
         let firstEl = field[i][0];
@@ -90,7 +92,7 @@ function checkWinner() {
 
 function cellClickHandler(row, col) {
     console.log(`Clicked on cell: ${row}, ${col}`);
-    if (field[row][col] !== EMPTY) {
+    if (field[row][col] !== EMPTY || winner !== undefined) {
         return;
     }
     if (counter % 2) {
@@ -101,7 +103,7 @@ function cellClickHandler(row, col) {
         field[row][col] = CROSS;
         renderSymbolInCell(CROSS, row, col);
     }
-    let winner = checkWinner()
+    winner = checkWinner()
     if (winner !== undefined) {
         console.log(winner)
         alert(winner)
