@@ -7,6 +7,8 @@ const container = document.getElementById('fieldWrapper');
 startGame();
 addResetListener();
 
+let field = [[EMPTY, EMPTY, EMPTY], [EMPTY, EMPTY, EMPTY], [EMPTY, EMPTY, EMPTY]];
+
 function startGame () {
     renderGrid(3);
 }
