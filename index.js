@@ -34,6 +34,18 @@ function renderGrid(dimension) {
     }
 }
 
+function checkWinner() {
+    let isCrossWinner = false;
+    let isZeroWinner = false;
+    for (let i = 0; i < field.length; i++) {
+        let firstEl = field[i][0];
+        if (field[i].every(cell => cell === firstEl && cell !== EMPTY)){
+            return firstEl;
+        }
+
+    }
+}
+
 function cellClickHandler(row, col) {
     console.log(`Clicked on cell: ${row}, ${col}`);
     if (field[row][col] !== EMPTY) {
