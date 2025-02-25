@@ -2,7 +2,7 @@ const CROSS = 'X';
 const ZERO = 'O';
 const EMPTY = ' ';
 const field = [];
-const dimension = 6;
+const dimension = 3;
 let cellsCount = 0;
 let counter = 0;
 let winner = undefined;
@@ -18,7 +18,7 @@ function startGame() {
     renderGrid(dimension);
 }
 
-function fillEmptyField(dimension){
+function fillEmptyField(dimension) {
     for (let i = 0; i < dimension; i++) {
         let row = [];
         for (let j = 0; j < dimension; j++) {
@@ -27,6 +27,10 @@ function fillEmptyField(dimension){
         field.push(row);
     }
     cellsCount = field.length * field[0].length;
+}
+
+function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 function renderGrid(dimension) {
@@ -115,11 +119,42 @@ function cellClickHandler(row, col) {
     winner = checkWinner()
     if (winner !== undefined) {
         console.log(winner)
-        alert(winner)
+        alert(`Победил: ${winner}`);
     }
+    counter++;
+    if (winner === undefined && counter !== cellsCount){
+        aiMove();
+    }
+    if (counter === cellsCount) {
+        alert('Победила дружба');
+    } 
+}
+
+function aiMove() {
+    const [row, col] = getRandomCoords();
+    field[row][col] = ZERO;
+    renderSymbolInCell(ZERO, row, col);
+
+    winner = checkWinner();
+    if (winner !== undefined) {
+        console.log(winner);
+        alert(`Победил: ${winner}`);
+        return;
+    }
+
     counter++;
     if (counter === cellsCount) {
         alert('Победила дружба');
+    }
+}
+
+function getRandomCoords(){
+    while (true) {
+        let row = getRandomInt(0, dimension - 1);
+        let col = getRandomInt(0, dimension - 1);
+        if (field[row][col] === EMPTY){
+            return [row, col];
+        }
     }
 }
 
@@ -149,7 +184,7 @@ function resetClickHandler() {
             field[i][j] = EMPTY;
             renderSymbolInCell(EMPTY, i, j);
         }
-        
+
     }
 }
 
