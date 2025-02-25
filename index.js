@@ -55,7 +55,7 @@ function checkWinner() {
             break;
         }
     }
-    if (completed){
+    if (completed && firstEl !== EMPTY){
         return firstEl;
     }
     firstEl = field[0][field.length - 1];
@@ -66,8 +66,9 @@ function checkWinner() {
             break;
         }
     }
-    if (completed)
+    if (completed && firstEl !== EMPTY) {
         return firstEl;
+    }
 }
 
 function cellClickHandler(row, col) {
@@ -83,7 +84,11 @@ function cellClickHandler(row, col) {
         field[row][col] = CROSS;
         renderSymbolInCell(CROSS, row, col);
     }
-    console.log(checkWinner())
+    let winner = checkWinner()
+    if (winner !== undefined){
+        console.log(winner)
+        alert(winner)
+    }
     counter++;
     if (counter === cellsCount) {
         alert('Победила дружба');
