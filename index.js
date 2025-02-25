@@ -1,12 +1,9 @@
 const CROSS = 'X';
 const ZERO = 'O';
 const EMPTY = ' ';
-const field = [
-    [EMPTY, EMPTY, EMPTY],
-    [EMPTY, EMPTY, EMPTY],
-    [EMPTY, EMPTY, EMPTY]
-];
-const cellsCount = field.length * field[0].length
+const field = [];
+const dimension = 6;
+let cellsCount = 0;
 let counter = 0;
 let winner = undefined;
 
@@ -17,7 +14,19 @@ addResetListener();
 
 
 function startGame() {
-    renderGrid(3);
+    fillEmptyField(dimension);
+    renderGrid(dimension);
+}
+
+function fillEmptyField(dimension){
+    for (let i = 0; i < dimension; i++) {
+        let row = [];
+        for (let j = 0; j < dimension; j++) {
+            row.push(EMPTY);
+        }
+        field.push(row);
+    }
+    cellsCount = field.length * field[0].length;
 }
 
 function renderGrid(dimension) {
