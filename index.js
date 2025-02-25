@@ -37,36 +37,53 @@ function renderGrid(dimension) {
 function checkWinner() {
     for (let i = 0; i < field.length; i++) {
         let firstEl = field[i][0];
-        if (field[i].every(cell => cell === firstEl && cell !== EMPTY)){
+        if (field[i].every(cell => cell === firstEl && cell !== EMPTY)) {
+            for (let j = 0; j < field[i].length; j++) {
+                renderSymbolInCell(firstEl, i, j, '#FF0000')
+            }
             return firstEl;
         }
     }
     for (let i = 0; i < field.length; i++) {
         let firstEl = field[0][i];
-        if (field.every(row => row[i] === firstEl && row[i] !== EMPTY)){
+        if (field.every(row => row[i] === firstEl && row[i] !== EMPTY)) {
+            for (let j = 0; j < field[i].length; j++) {
+                renderSymbolInCell(firstEl, j, i, '#FF0000')
+            }
             return firstEl;
         }
     }
+    let winnerCells = [];
     let firstEl = field[0][0];
     let completed = true;
     for (let i = 0; i < field.length; i++) {
-        if (field[i][i] !== firstEl){
+        winnerCells.push(i);
+        if (field[i][i] !== firstEl) {
             completed = false;
+            winnerCells = []
             break;
         }
     }
-    if (completed && firstEl !== EMPTY){
+    if (completed && firstEl !== EMPTY) {
+        winnerCells.forEach(element => {
+            renderSymbolInCell(firstEl, element, element, '#FF0000')
+        });
         return firstEl;
     }
     firstEl = field[0][field.length - 1];
     completed = true;
     for (let i = 0; i < field.length; i++) {
-        if (field[i][field.length - 1 - i] !== firstEl){
+        winnerCells.push(i);
+        if (field[i][field.length - 1 - i] !== firstEl) {
             completed = false;
+            winnerCells = []
             break;
         }
     }
     if (completed && firstEl !== EMPTY) {
+        winnerCells.forEach(element => {
+            renderSymbolInCell(firstEl, element, field.length - 1 - element, '#FF0000')
+        });
         return firstEl;
     }
 }
@@ -85,7 +102,7 @@ function cellClickHandler(row, col) {
         renderSymbolInCell(CROSS, row, col);
     }
     let winner = checkWinner()
-    if (winner !== undefined){
+    if (winner !== undefined) {
         console.log(winner)
         alert(winner)
     }
